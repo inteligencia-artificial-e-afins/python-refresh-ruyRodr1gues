@@ -1,10 +1,16 @@
 # Exercicio 01
 def max_consecutive_sum(nums):
-    # implementar a solução aqui
-    pass
+    current_sum = max_sum = nums[0]
+
+    for num in nums[1:]:
+        current_sum = max(num, current_sum + num)
+        max_sum = max(max_sum, current_sum)
+
+    return max_sum
 
 # Testes 01
 def test_max_consecutive_sum():
+    print("Teste 1 - max_consecutive_sum")
     print(max_consecutive_sum([1, -3, 2, 1, -1]) == 3)
     print(max_consecutive_sum([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6)
     print(max_consecutive_sum([5, -1, -2, 3, -1, 2, -4]) == 7)
@@ -12,13 +18,16 @@ def test_max_consecutive_sum():
     print(max_consecutive_sum([-1, -2, -3, -4, -5]) == -1)
 
 
+
 # Exercício 02
 def is_palindrome(word):
-    # implementar a solução aqui
-    pass
+    word = word.replace(" ", "").lower()
+
+    return word == word[::-1]
 
 # Testes 02
 def text_is_palindrome():
+    print("Teste 2 - is_palindrome")
     print(is_palindrome("radar") == True)
     print(is_palindrome("racecar") == True)
     print(is_palindrome("level") == True)
@@ -31,8 +40,17 @@ def text_is_palindrome():
 
 # Exercício 03
 def count_increasing_subsets(nums):
-    # implementar a solução aqui
-    pass
+    def backtrack(start, subset):
+        nonlocal count
+        if len(subset) > 0:
+            count += 1
+        for i in range(start, len(nums)):
+            if not subset or nums[i] > subset[-1]:
+                backtrack(i + 1, subset + [nums[i]])
+
+    count = 0
+    backtrack(0, [])
+    return count
 
 # Testes 03
 def test_count_increasing_subsets():
